@@ -1,0 +1,6 @@
+commit dbe16b6a70c782324e8a9bbc943ac01cfed047b7
+Author: omar <omarcornut@gmail.com>
+Date:   Fri May 4 14:55:38 2018 +0200
+
+    Made IMGUI_DISABLE_OBSOLETE_FUNCTIONS exceptionally not affect the layout of ImGuiIO. (#1695)
+
