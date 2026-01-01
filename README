@@ -1,0 +1,13 @@
+Various Go libraries for multimedia stuff.
+
+These libraries is for my personal projects, no API stability at all.
+
+Windows note:
+Easiest way to install mingw is to install msys2
+http://www.msys2.org/
+Download the exe and then after installation, msys2 comes with
+the package manager pacman. GCC and various other build tools
+exists as packages that can be installed.
+https://github.com/msys2/msys2/wiki/Packages
+
+Use CPATH for include path in environment variables
