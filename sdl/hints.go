@@ -1,0 +1,85 @@
+package sdl
+
+/*
+#include "gosdl.h"
+*/
+import "C"
+import "unsafe"
+
+type HintPriority C.SDL_HintPriority
+
+const (
+	HINT_DEFAULT  HintPriority = C.SDL_HINT_DEFAULT
+	HINT_NORMAL   HintPriority = C.SDL_HINT_NORMAL
+	HINT_OVERRIDE HintPriority = C.SDL_HINT_OVERRIDE
+)
+
+const (
+	HINT_FRAMEBUFFER_ACCELERATION                 = C.SDL_HINT_FRAMEBUFFER_ACCELERATION
+	HINT_RENDER_DRIVER                            = C.SDL_HINT_RENDER_DRIVER
+	HINT_RENDER_OPENGL_SHADERS                    = C.SDL_HINT_RENDER_OPENGL_SHADERS
+	HINT_RENDER_DIRECT3D_THREADSAFE               = C.SDL_HINT_RENDER_DIRECT3D_THREADSAFE
+	HINT_RENDER_DIRECT3D11_DEBUG                  = C.SDL_HINT_RENDER_DIRECT3D11_DEBUG
+	HINT_RENDER_SCALE_QUALITY                     = C.SDL_HINT_RENDER_SCALE_QUALITY
+	HINT_XINPUT_ENABLED                           = C.SDL_HINT_XINPUT_ENABLED
+	HINT_XINPUT_USE_OLD_JOYSTICK_MAPPING          = C.SDL_HINT_XINPUT_USE_OLD_JOYSTICK_MAPPING
+	HINT_GAMECONTROLLERCONFIG                     = C.SDL_HINT_GAMECONTROLLERCONFIG
+	HINT_ALLOW_TOPMOST                            = C.SDL_HINT_ALLOW_TOPMOST
+	HINT_APPLE_TV_REMOTE_ALLOW_ROTATION           = C.SDL_HINT_APPLE_TV_REMOTE_ALLOW_ROTATION
+	HINT_APPLE_TV_CONTROLLER_UI_EVENTS            = C.SDL_HINT_APPLE_TV_CONTROLLER_UI_EVENTS
+	HINT_ACCELEROMETER_AS_JOYSTICK                = C.SDL_HINT_ACCELEROMETER_AS_JOYSTICK
+	HINT_JOYSTICK_ALLOW_BACKGROUND_EVENTS         = C.SDL_HINT_JOYSTICK_ALLOW_BACKGROUND_EVENTS
+	HINT_TIMER_RESOLUTION                         = C.SDL_HINT_TIMER_RESOLUTION
+	HINT_THREAD_STACK_SIZE                        = C.SDL_HINT_THREAD_STACK_SIZE
+	HINT_VIDEO_HIGHDPI_DISABLED                   = C.SDL_HINT_VIDEO_HIGHDPI_DISABLED
+	HINT_MAC_CTRL_CLICK_EMULATE_RIGHT_CLICK       = C.SDL_HINT_MAC_CTRL_CLICK_EMULATE_RIGHT_CLICK
+	HINT_VIDEO_WIN_D3DCOMPILER                    = C.SDL_HINT_VIDEO_WIN_D3DCOMPILER
+	HINT_VIDEO_WINDOW_SHARE_PIXEL_FORMAT          = C.SDL_HINT_VIDEO_WINDOW_SHARE_PIXEL_FORMAT
+	HINT_WINRT_PRIVACY_POLICY_URL                 = C.SDL_HINT_WINRT_PRIVACY_POLICY_URL
+	HINT_WINRT_PRIVACY_POLICY_LABEL               = C.SDL_HINT_WINRT_PRIVACY_POLICY_LABEL
+	HINT_WINRT_HANDLE_BACK_BUTTON                 = C.SDL_HINT_WINRT_HANDLE_BACK_BUTTON
+	HINT_VIDEO_MAC_FULLSCREEN_SPACES              = C.SDL_HINT_VIDEO_MAC_FULLSCREEN_SPACES
+	HINT_MAC_BACKGROUND_APP                       = C.SDL_HINT_MAC_BACKGROUND_APP
+	HINT_ANDROID_APK_EXPANSION_MAIN_FILE_VERSION  = C.SDL_HINT_ANDROID_APK_EXPANSION_MAIN_FILE_VERSION
+	HINT_ANDROID_APK_EXPANSION_PATCH_FILE_VERSION = C.SDL_HINT_ANDROID_APK_EXPANSION_PATCH_FILE_VERSION
+	HINT_IME_INTERNAL_EDITING                     = C.SDL_HINT_IME_INTERNAL_EDITING
+	HINT_EMSCRIPTEN_KEYBOARD_ELEMENT              = C.SDL_HINT_EMSCRIPTEN_KEYBOARD_ELEMENT
+	HINT_NO_SIGNAL_HANDLERS                       = C.SDL_HINT_NO_SIGNAL_HANDLERS
+	HINT_WINDOWS_NO_CLOSE_ON_ALT_F4               = C.SDL_HINT_WINDOWS_NO_CLOSE_ON_ALT_F4
+	HINT_BMP_SAVE_LEGACY_FORMAT                   = C.SDL_HINT_BMP_SAVE_LEGACY_FORMAT
+	HINT_WINDOWS_DISABLE_THREAD_NAMING            = C.SDL_HINT_WINDOWS_DISABLE_THREAD_NAMING
+	HINT_RPI_VIDEO_LAYER                          = C.SDL_HINT_RPI_VIDEO_LAYER
+	HINT_RENDER_VSYNC                             = C.SDL_HINT_RENDER_VSYNC
+)
+
+func SetHintWithPriority(name, value string, prio HintPriority) bool {
+	cname := C.CString(name)
+	cvalue := C.CString(value)
+	defer C.free(unsafe.Pointer(cname))
+	defer C.free(unsafe.Pointer(cvalue))
+	return C.SDL_SetHintWithPriority(cname, cvalue, C.SDL_HintPriority(prio)) != 0
+}
+
+func SetHint(name, value string) bool {
+	cname := C.CString(name)
+	cvalue := C.CString(value)
+	defer C.free(unsafe.Pointer(cname))
+	defer C.free(unsafe.Pointer(cvalue))
+	return C.SDL_SetHint(cname, cvalue) != 0
+}
+
+func GetHint(name string) string {
+	cname := C.CString(name)
+	defer C.free(unsafe.Pointer(cname))
+	return C.GoString(C.SDL_GetHint(cname))
+}
+
+func GetHintBoolean(name string, defaultValue bool) bool {
+	cname := C.CString(name)
+	defer C.free(unsafe.Pointer(cname))
+	return C.SDL_GetHintBoolean(cname, truth(defaultValue)) != 0
+}
+
+func ClearHints() {
+	C.SDL_ClearHints()
+}

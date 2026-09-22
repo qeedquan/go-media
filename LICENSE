@@ -1,0 +1,7 @@
+The non-vendored code is in MIT License
+
+The vendored libraries are distributed with the
+follow licenses:
+
+SDL_gfx - LGPL
+stb     - public domain

@@ -1,0 +1,37 @@
+#include <stdint.h>
+
+typedef void STB_TEXTEDIT_STRING;
+
+#define STB_TEXTEDIT_CHARTYPE int
+
+#include "stb_textedit.h"
+
+int STB_TEXTEDIT_STRINGLEN(STB_TEXTEDIT_STRING *str);
+int STB_TEXTEDIT_GETCHAR(STB_TEXTEDIT_STRING *str, int idx);
+float STB_TEXTEDIT_GETWIDTH(STB_TEXTEDIT_STRING *str, int line_start_idx, int char_idx);
+#define STB_TEXTEDIT_NEWLINE '\n'
+void STB_TEXTEDIT_LAYOUTROW(StbTexteditRow *r, STB_TEXTEDIT_STRING *str, int line_start_idx);
+int STB_TEXTEDIT_MOVEWORDRIGHT(STB_TEXTEDIT_STRING *str, int idx);
+int STB_TEXTEDIT_MOVEWORDLEFT(STB_TEXTEDIT_STRING *str, int idx);
+void STB_TEXTEDIT_DELETECHARS(STB_TEXTEDIT_STRING *str, int pos, int n);
+int STB_TEXTEDIT_INSERTCHARS(STB_TEXTEDIT_STRING *str, int pos, STB_TEXTEDIT_CHARTYPE *new_text, int new_text_len);
+int STB_TEXTEDIT_KEYTOTEXT(int key);
+
+#define STB_TEXTEDIT_K_START        0x10000
+#define STB_TEXTEDIT_K_LEFT         0x10000 
+#define STB_TEXTEDIT_K_RIGHT        0x10001 
+#define STB_TEXTEDIT_K_UP           0x10002 
+#define STB_TEXTEDIT_K_DOWN         0x10003 
+#define STB_TEXTEDIT_K_LINESTART    0x10004 
+#define STB_TEXTEDIT_K_LINEEND      0x10005 
+#define STB_TEXTEDIT_K_TEXTSTART    0x10006 
+#define STB_TEXTEDIT_K_TEXTEND      0x10007 
+#define STB_TEXTEDIT_K_DELETE       0x10008 
+#define STB_TEXTEDIT_K_BACKSPACE    0x10009 
+#define STB_TEXTEDIT_K_UNDO         0x1000A 
+#define STB_TEXTEDIT_K_REDO         0x1000B 
+#define STB_TEXTEDIT_K_WORDLEFT     0x1000C 
+#define STB_TEXTEDIT_K_WORDRIGHT    0x1000D 
+#define STB_TEXTEDIT_K_PGUP         0x1000E 
+#define STB_TEXTEDIT_K_PGDOWN       0x1000F 
+#define STB_TEXTEDIT_K_SHIFT        0x20000
